@@ -5,13 +5,13 @@ Installation
 ============
 
 
-The simplest way to install sidecar is via pip::
+The simplest way to install sidepanel is via pip::
 
-    pip install sidecar
+    pip install sidepanel
 
 or via conda::
 
-    conda install sidecar
+    conda install sidepanel
 
 .. links
 

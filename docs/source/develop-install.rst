@@ -3,11 +3,11 @@ Developer install
 =================
 
 
-To install a developer version of sidecar, you will first need to clone
+To install a developer version of sidepanel, you will first need to clone
 the repository::
 
-    git clone https://github.com/jupyter-widgets/jupyterlab-sidecar
-    cd sidecar
+    git clone https://github.com/yarden-livnat/sidepanel
+    cd sidepanel
 
 Next, install it with a develop install using pip::
 

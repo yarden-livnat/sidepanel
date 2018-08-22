@@ -11,5 +11,11 @@
     "outDir": "../lib",
     "skipLibCheck": true,
     "sourceMap": true
-  }
+  },
+  "include": [
+    "**/*"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
-# sidecar documentation build configuration file
+# sidepanel documentation build configuration file
 #
 # This file is execfile()d with the current directory set to its
 # containing dir.
@@ -54,9 +54,9 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = 'sidecar'
-copyright = '2018, Project Jupyter'
-author = 'Project Jupyter'
+project = 'sidepanel'
+copyright = '2018, University of Utah'
+author = 'Yarden Livnat'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -69,7 +69,7 @@ author = 'Project Jupyter'
 import os
 here = os.path.dirname(__file__)
 repo = os.path.join(here, '..', '..')
-_version_py = os.path.join(repo, 'sidecar', '_version.py')
+_version_py = os.path.join(repo, 'sidepanel', '_version.py')
 version_ns = {}
 with open(_version_py) as f:
     exec(f.read(), version_ns)
@@ -116,7 +116,7 @@ html_static_path = ['_static']
 # -- Options for HTMLHelp output ------------------------------------------
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'sidecardoc'
+htmlhelp_basename = 'sidepaneldoc'
 
 
 # -- Options for LaTeX output ---------------------------------------------
@@ -143,7 +143,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'sidecar.tex', 'sidecar Documentation',
+    (master_doc, 'sidepanel.tex', 'sidepanel Documentation',
      'Project Jupyter', 'manual'),
 ]
 
@@ -154,8 +154,8 @@ latex_documents = [
 # (source start file, name, description, authors, manual section).
 man_pages = [
     (master_doc,
-    'sidecar',
-    'sidecar Documentation',
+    'sidepanel',
+    'sidepanel Documentation',
      [author], 1)
 ]
 
@@ -167,11 +167,11 @@ man_pages = [
 #  dir menu entry, description, category)
 texinfo_documents = [
     (master_doc,
-     'sidecar',
-     'sidecar Documentation',
+     'sidepanel',
+     'sidepanel Documentation',
      author,
-     'sidecar',
-     'A sidecar output widget for JupyterLab',
+     'sidepanel',
+     'A sidepanel output widget for JupyterLab',
      'Miscellaneous'),
 ]
 

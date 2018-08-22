@@ -1,22 +1,22 @@
 
-sidecar
+sidepanel
 =====================================
 
 Version: |release|
 
-A sidecar output widget for JupyterLab
+A sidepanel output widget for JupyterLab
 
 
 Quickstart
 ----------
 
-To get started with sidecar, install with pip::
+To get started with sidepanel, install with pip::
 
-    pip install sidecar
+    pip install sidepanel
 
 or with conda::
 
-    conda install sidecar
+    conda install sidepanel
 
 
 Contents

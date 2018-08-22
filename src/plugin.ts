@@ -6,80 +6,48 @@ import {
 } from '@jupyterlab/application';
 
 import {
-    UUID
-} from '@phosphor/coreutils';
-
-import {
   IJupyterWidgetRegistry
  } from '@jupyter-widgets/base';
 
-// TODO: import from @jupyter-widgets/jupyterlab-manager once Output is
-// exported by the main module.
 import {
-   OutputView
-} from '@jupyter-widgets/jupyterlab-manager/lib/output';
+  SidePanelModel
+} from './SidePanelModel';
 
 import {
-  SidecarModel
-} from './widget';
+  SidePanel
+} from './SidePanel';
 
 import {
   EXTENSION_SPEC_VERSION
 } from './version';
 
-import '../css/sidecar.css';
+const EXTENSION_ID = '@regulus/sidepanel';
 
-const EXTENSION_ID = '@jupyter-widgets/jupyterlab-sidecar';
-
-const sidecarPlugin: JupyterLabPlugin<void> = {
+const sidepanelPlugin: JupyterLabPlugin<void> = {
   id: EXTENSION_ID,
   requires: [IJupyterWidgetRegistry],
-  activate: activateWidgetExtension,
+  activate: activateSidepanelExtension,
   autoStart: true
 };
 
-export default sidecarPlugin;
-
+export default  sidepanelPlugin;
 
 /**
- * Activate the widget extension.
+ * Activate the extension.
  */
-function activateWidgetExtension(app: JupyterLab, registry: IJupyterWidgetRegistry): void {
-    let SidecarView = class extends OutputView {
-      model: SidecarModel;
-
-      render() {
-        if (!this.model.rendered) {
-          super.render();
-          let w = this._outputView;
-          w.addClass('jupyterlab-sidecar');
-          w.addClass('jp-LinkedOutputView');
-          w.title.label = this.model.get('title');
-          w.title.closable = true;
-          app.shell['_rightHandler'].sideBar.tabCloseRequested.connect((sender : any, tab : any) => {
-              tab.title.owner.dispose();
-          });
-          w.id = UUID.uuid4();
-          if (Object.keys(this.model.views).length > 1) {
-            w.node.style.display = 'none';
-            let key = Object.keys(this.model.views)[0];
-            this.model.views[key].then((v: OutputView) => {
-              v._outputView.activate();
-            });
-          } else {
-            app.shell.addToRightArea(w);
-            app.shell.expandRight();
-          }
-        }
-      }
+function activateSidepanelExtension(app: JupyterLab, registry: IJupyterWidgetRegistry): void {
+  let AppSidePanel = class extends SidePanel {
+    constructor(options: any) {
+      super({app, ...options});
     }
+  }
 
-    registry.registerWidget({
-      name: '@jupyter-widgets/jupyterlab-sidecar',
-      version: EXTENSION_SPEC_VERSION,
-      exports: {
-        SidecarModel: SidecarModel,
-        SidecarView: SidecarView
-      }
+  registry.registerWidget({
+    name: EXTENSION_ID,
+    version: EXTENSION_SPEC_VERSION,
+    exports: {
+      SidePanelModel: SidePanelModel,
+      SidePanel: AppSidePanel
+    }
   });
 }

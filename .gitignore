@@ -145,11 +145,11 @@ $RECYCLE.BIN/
 # ----
 
 **/node_modules/
-sidecar/labextension/*.tgz
+sidepanel/labextension/*.tgz
 
 # Coverage data
 # -------------
 **/coverage/
 
 # Packed lab extensions
-sidecar/labextension
+sidepanel/labextension

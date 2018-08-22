@@ -19,7 +19,7 @@ from setuptools import setup
 
 
 # The name of the project
-name = 'sidecar'
+name = 'sidepanel'
 
 # Ensure a valid python version
 ensure_python('>=3.3')
@@ -55,14 +55,14 @@ cmdclass['jsdeps'] = combine_commands(
 
 setup_args = dict(
     name            = name,
-    description     = 'A sidecar output widget for JupyterLab',
+    description     = 'A sidepanel output widget for JupyterLab',
     version         = version,
     scripts         = glob(pjoin('scripts', '*')),
     cmdclass        = cmdclass,
     packages        = find_packages(),
     author          = 'Project Jupyter',
     author_email    = 'ipython-dev@scipy.org',
-    url             = 'https://github.com/jupyter-widgets/jupyterlab-sidecar',
+    url             = 'https://github.com/yarden-livnat/sidepanel',
     license         = 'BSD',
     platforms       = "Linux, Mac OS X, Windows",
     keywords        = ['Jupyter', 'Widgets', 'IPython'],

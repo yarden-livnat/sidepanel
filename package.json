@@ -1,16 +1,16 @@
 {
-  "name": "@jupyter-widgets/jupyterlab-sidecar",
-  "version": "0.3.0",
-  "description": "A sidecar output widget for JupyterLab",
+  "name": "@regulus/sidepanel",
+  "version": "0.1.0",
+  "description": "A sidepanel output widget for JupyterLab",
   "keywords": [
     "jupyter",
     "jupyterlab",
     "jupyterlab extension",
     "widgets"
   ],
-  "homepage": "https://github.com/jupyter-widgets/jupyterlab-sidecar",
+  "homepage": "https://github.com/yarden-livnat/sidepanel",
   "bugs": {
-    "url": "https://github.com/jupyter-widgets/jupyterlab-sidecar/issues"
+    "url": "https://github.com/yarden-livnat/sidepanel/issues"
   },
   "license": "BSD-3-Clause",
   "author": "Project Jupyter",
@@ -18,16 +18,21 @@
   "types": "./lib/index.d.ts",
   "repository": {
     "type": "git",
-    "url": "https://github.com/jupyter-widgets/jupyterlab-sidecar"
+    "url": "https://github.com/yarden-livnat/sidepanel"
   },
+  "files": [
+    "lib/**/*.d.ts",
+    "lib/**/*.js",
+    "lib/**/*.css"
+  ],
   "scripts": {
     "build": "npm run build:lib",
-    "build:labextension": "cd sidecar && rimraf labextension && mkdirp labextension && cd labextension && npm pack ../..",
+    "build:labextension": "cd sidepanel && rimraf labextension && mkdirp labextension && cd labextension && npm pack ../..",
     "build:lib": "tsc",
     "build:all": "npm run build:lib && npm run build:labextension",
     "clean": "npm run clean:lib",
     "clean:lib": "rimraf lib",
-    "clean:labextension": "rimraf sidecar/labextension",
+    "clean:labextension": "rimraf sidepanel/labextension",
     "prepare": "npm run build:lib",
     "test": "npm run test:firefox",
     "test:chrome": "karma start --browsers=Chrome tests/karma.conf.js",
