@@ -35,17 +35,17 @@ class SidePanel extends SimplifiedOutputView {
       w.title.label = this.model.get('title');
       w.title.closable = true;
       w.id = UUID.uuid4();
-      // if (Object.keys(this.model.views).length > 1) {
-      //   w.node.style.display = 'none';
-      //   let key = Object.keys(this.model.views)[0];
-      //   this.model.views[key].then((v: OutputView) => {
-      //     v._outputView.activate();
-      //   });
-      // } else {
+      if (Object.keys(this.model.views).length > 1) {
+        w.node.style.display = 'none';
+        let key = Object.keys(this.model.views)[0];
+        this.model.views[key].then((v: SimplifiedOutputView) => {
+          v._outputView.activate();
+        });
+      } else {
         let { shell } = this.app;
         shell.addToMainArea(w, {mode : this.model.get('side')});
         // shell.activateById(w.id);
-      // }
+      }
     }
   }
 }
