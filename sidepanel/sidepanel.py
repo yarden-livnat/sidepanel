@@ -14,3 +14,4 @@ class SidePanel(Output):
     _view_module_version = Unicode(EXTENSION_SPEC_VERSION).tag(sync=True)
     title = Unicode('SidePanel').tag(sync=True)
     side = Unicode('split-right').tag(sync=True)
+    ref = Unicode(None, allow_none=True).tag(sync=True)

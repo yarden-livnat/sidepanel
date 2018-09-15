@@ -22,7 +22,8 @@ class SidePanelModel extends OutputModel {
       _view_module: SidePanelModel.view_module,
       _view_module_version: SidePanelModel.view_module_version,
       title: 'SidePanel',
-      side: 'split-right'
+      side: 'split-right',
+      ref: null
     };
   }
 
