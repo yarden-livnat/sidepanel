@@ -2,7 +2,7 @@ from ipywidgets import Output, register
 from traitlets import Unicode
 from ._version import EXTENSION_SPEC_VERSION
 
-MODULE_NAME = "@regulus/sidepanel"
+MODULE_NAME = "sidepanel"
 
 @register
 class SidePanel(Output):

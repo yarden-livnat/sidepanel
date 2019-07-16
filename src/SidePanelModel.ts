@@ -1,15 +1,15 @@
 import {
-   OutputModel
-} from '@jupyter-widgets/jupyterlab-manager/lib/output';
+   output
+} from '@jupyter-widgets/jupyterlab-manager';
 
 import {
   EXTENSION_SPEC_VERSION
 } from './version';
 
-const MODULE_NAME = '@regulus/sidepanel';
+const MODULE_NAME = 'sidepanel';
 
 export
-class SidePanelModel extends OutputModel {
+class SidePanelModel extends output.OutputModel {
   rendered: boolean;
 
   defaults() {
@@ -33,9 +33,8 @@ class SidePanelModel extends OutputModel {
   }
 
   static serializers : any = {
-      ...OutputModel.serializers,
-      // Add any extra serializers here
-    }
+      ...output.OutputModel.serializers,
+    };
 
   static model_name = 'SidePanelModel';
   static model_module = MODULE_NAME;

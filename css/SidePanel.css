@@ -1,15 +1,15 @@
-.rg_sidepanel {
+.sidepanel {
   display: flex;
   flex-direction: column;
 }
 
 
-.rg_sidepanel .jp-OutputArea-output {
+.sidepanel .jp-OutputArea-output {
   flex-grow: 0;
   flex-shrink: 1;
 }
 
-.rg_sidepanel .jp-OutputArea-output.rg_output {
+.sidepanel .jp-OutputArea-output.rg_output {
   display: flex;
   flex-direction: column;
   flex-grow: 1;
