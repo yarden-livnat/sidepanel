@@ -40,7 +40,7 @@ class SidePanelModel extends output.OutputModel {
   static model_module = MODULE_NAME;
   static model_module_version = EXTENSION_SPEC_VERSION;
 
-  static view_name = 'SidePanel';
+  static view_name = 'SidePanel2';
   static view_module = MODULE_NAME;
   static view_module_version = EXTENSION_SPEC_VERSION;
 }

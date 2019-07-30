@@ -5,7 +5,7 @@ import { JupyterFrontEnd, JupyterFrontEndPlugin } from '@jupyterlab/application'
 import { IJupyterWidgetRegistry } from '@jupyter-widgets/base';
 
 import { SidePanelModel } from './SidePanelModel';
-import { SidePanel } from './SidePanel';
+import { SidePanel } from './SidePanel2';
 import { EXTENSION_SPEC_VERSION } from './version';
 
 const EXTENSION_ID = 'sidepanel';
