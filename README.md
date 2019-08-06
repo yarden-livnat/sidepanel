@@ -7,8 +7,6 @@ A fork of jupyterlab/Sidecar with an additional Sidepanel
 
 ## Installation
 
-If you use jupyterlab:
-
 ```bash
 pip install sidepanel
 jupyter labextension install sidepanel
