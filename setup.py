@@ -1,7 +1,5 @@
 #!/usr/bin/env python
 # coding: utf-8
-
-
 from __future__ import print_function
 import sys
 import os
@@ -17,7 +15,7 @@ LONG_DESCRIPTION = """
 """
 
 
-if v[0] < 3 or (v[0] == 3 and v[:2] < (3,7)):
+if v[0] < 3 or (v[0] == 3 and v[:2] < (3, 7)):
     error = "ERROR: %s requires Python version 3.7 or above." % name
     print(error, file=sys.stderr)
     sys.exit(1)
