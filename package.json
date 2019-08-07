@@ -28,7 +28,6 @@
     "clean": "npm run clean:lib",
     "clean:lib": "rimraf lib",
     "clean:labextension": "rimraf sidepanel/labextension",
-    "prepare-1": "npm run build:lib",
     "watch": "npm-run-all -p watch:*",
     "watch:lib": "tsc"
   },
