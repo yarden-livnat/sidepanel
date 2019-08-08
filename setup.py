@@ -12,6 +12,7 @@ v = sys.version_info
 name = 'sidepanel'
 
 LONG_DESCRIPTION = """
+Sidepanel extension for Jupyter
 """
 
 
@@ -32,36 +33,26 @@ version_ns = {}
 with open(pjoin(here, name, '_version.py')) as f:
     exec(f.read(), {}, version_ns)
 
-
 setup_args = dict(
-    name            = name,
-    version         = version_ns['__version__'],
-    scripts         = [],
-    packages        = packages,
-    package_data    = {
-        'sidepanel': [ 'state.schema.json', 'view.schema.json' ]
-    },
-    description     = "BTracks widgets for Jupyter",
-    long_description = LONG_DESCRIPTION,
-    author          = 'Yarden Livnat',
-    author_email    = 'yarden@sci.utah.edu',
-    url             = 'https://github.com/yarden-livnat/sidepanel',
-    license         = 'BSD',
-    platforms       = "Linux, Mac OS X, Windows",
-    keywords        = ['Interactive', 'Interpreter', 'Shell', 'Web'],
-    classifiers     = [
+    name=name,
+    version=version_ns['__version__'],
+    scripts=[],
+    packages=packages,
+    description="Sidepanel extension for Jupyter",
+    long_description=LONG_DESCRIPTION,
+    author='Yarden Livnat',
+    author_email='yarden@sci.utah.edu',
+    url='https://github.com/yarden-livnat/sidepanel',
+    license='BSD',
+    platforms="Linux, Mac OS X, Windows",
+    keywords=['Interactive', 'JupyterLab'],
+    classifiers=[
         'Intended Audience :: Developers',
-        'Intended Audience :: System Administrators',
         'Intended Audience :: Science/Research',
         'License :: OSI Approved :: BSD License',
-        'Programming Language :: Python',
         'Programming Language :: Python :: 3.7',
         'Framework :: Jupyter'
-    ],
-    cmdclass        = {
-        'build_py': build_py,
-        'sdist': sdist,
-    },
+    ]
 )
 
 if 'develop' in sys.argv or any(a.startswith('bdist') for a in sys.argv):

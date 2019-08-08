@@ -8,8 +8,14 @@ A fork of jupyterlab/Sidecar with an additional Sidepanel
 ## Installation
 
 ```bash
+jupyter labextension install @jupyter-widgets/jupyterlab-manager  # if not installed already
 pip install sidepanel
 jupyter labextension install sidepanel
+```
+
+For development
+```bash
+./dev-install.sh
 ```
 
 ## Usage
@@ -18,12 +24,12 @@ The sidepanel widget is used as a context manager, just like ipywidgets' output
 widget.
 
 ```python
-from sidepanel import Sidepanel
+from sidepanel import sidepanel
 from ipywidgets import IntSlider
 
-sp = Sidepanel(title='Sidecar Output')
+panel = sidepanel('Sidepanel')
 sl = IntSlider(description='Some slider')
-with sp:
+with panels:
     display(sl)
 ```
 
