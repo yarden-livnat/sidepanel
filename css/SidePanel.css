@@ -1,16 +1,21 @@
+/*.sidepanel {*/
+/*  display: flex;*/
+/*  flex-direction: column;*/
+/*}*/
+
+
+/*.sidepanel .jp-OutputArea-output {*/
+/*  flex-grow: 0;*/
+/*  flex-shrink: 1;*/
+/*}*/
+
+/*.sidepanel .jp-OutputArea-output.rg_output {*/
+/*  display: flex;*/
+/*  flex-direction: column;*/
+/*  flex-grow: 1;*/
+/*}*/
+
+
 .sidepanel {
-  display: flex;
-  flex-direction: column;
-}
-
-
-.sidepanel .jp-OutputArea-output {
-  flex-grow: 0;
-  flex-shrink: 1;
-}
-
-.sidepanel .jp-OutputArea-output.rg_output {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
+  /*background-color: yellow;*/
 }

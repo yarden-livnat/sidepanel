@@ -1,65 +1,78 @@
-import * as $ from 'jquery';
-
 import {JupyterLab} from "@jupyterlab/application";
 import {MainAreaWidget} from '@jupyterlab/apputils';
-import {IOutputAreaModel, SimplifiedOutputArea} from '@jupyterlab/outputarea';
 
-import {DOMWidgetView} from '@jupyter-widgets/base';
-import {OutputView} from "@jupyter-widgets/output";
+import {BoxModel, VBoxView} from '@jupyter-widgets/controls';
+// import {output} from "@jupyter-widgets/jupyterlab-manager";
 
 import {find} from '@phosphor/algorithm';
-import {Message, MessageLoop} from '@phosphor/messaging';
 import {UUID} from '@phosphor/coreutils';
-import {Panel} from '@phosphor/widgets';
+// import {Panel, Widget} from '@phosphor/widgets';
 
-import {SidePanelModel} from "./SidePanelModel";
+import {EXTENSION_SPEC_VERSION} from "./version";
+
 import '../css/SidePanel.css';
+const MODULE_NAME = 'sidepanel';
 
-export class SidePanel extends OutputView {
+export class SidePanelModel extends BoxModel {
+  defaults() {
+    return {
+      ...super.defaults(),
+      _model_name: 'SidePanelModel',
+      _model_module: MODULE_NAME,
+      _model_module_version: EXTENSION_SPEC_VERSION,
+
+      _view_name: 'SidePanel',
+      _view_module: MODULE_NAME,
+      _view_module_version: EXTENSION_SPEC_VERSION,
+
+      title: 'SidePanel',
+      side: 'split-right',
+      ref: null,
+
+      _headers: [],
+      _open: [],
+      _expand: []
+    }
+  }
+
+  initialize(attributes: any, options: any) {
+    super.initialize(attributes, options);
+    this.widget_manager.display_model(undefined, this, {});
+  }
+
+  static serializers: any = {
+    ...BoxModel.serializers,
+  };
+}
+
+export class SidePanel extends VBoxView {
   constructor(options: any) {
-    // console.log('SidePanel2', options);
     super(options);
     this.app = options.app;
   }
 
-  _createElement(tagName: string): any {
-    // console.log('create element', tagName);
-    this.pWidget = new SidePanelOutputArea({view: this});
-    return this.pWidget.node;
+  initialize(parameters: any) {
+    super.initialize(parameters);
+    this.listenTo(this.model, 'change:_headers', () => this.update_headers());
+    this.listenTo(this.model, 'change:_open', () => this.update_open);
+    this.listenTo(this.model, 'change:_expand', () => this.update_expand());
+
+   this.pWidget.addClass('sidepanel');
   }
 
-  _setElement(el: HTMLElement) {
-    // console.log('set element', el);
-    if (this.el || el !== this.pWidget.node) {
-      throw new Error('Cannot reset the DOM element.');
-    }
-    this.el = this.pWidget.node;
-    this.$el = $(this.pWidget.node);
-  }
-
+  /**
+   * Called when view is rendered.
+   */
   render() {
+    console.log('new SidePanel');
     super.render();
-    this.outputArea = new SimplifiedOutputArea({
-      rendermime: this.model.widget_manager.rendermime,
-      contentFactory: SimplifiedOutputArea.defaultContentFactory,
-      model: this.model.outputs
-    });
-    this.pWidget.insertWidget(0, this.outputArea);
-    this.pWidget.addClass('jupyter-widgets');
-    this.pWidget.addClass('widget-output');
-    this.update();
 
-    this.outputArea.addClass('sidepanel');
-    this.outputArea.addClass('jp-LinkedOutputView');
-
-    let shell = this.app.shell;
-    let w = new MainAreaWidget({content: this.outputArea});
+    let w = new MainAreaWidget({content: this.pWidget});
     w.id = `SidePanel-${UUID.uuid4()}`;
     w.title.label = this.model.get('title') || '';
     w.title.closable = true;
-    w.disposed.connect(() => this.dispose());
 
-    this.outputArea.model.changed.connect(this.refresh, this);
+    let shell = this.app.shell;
 
     let ref_id: any = null;
     let label = this.model.get('ref');
@@ -70,54 +83,60 @@ export class SidePanel extends OutputView {
     shell.add(w, 'main', {mode: this.model.get('side'), ref: ref_id});
   }
 
-  refresh(model: IOutputAreaModel, args: IOutputAreaModel.ChangedArgs) {
-    console.log('sidepanel.referesh', model, args);
-    MessageLoop.postMessage(this.outputArea, new Message('resize'));
+
+  update_headers() {
+  }
+
+  update_open() {
+  }
+
+  update_expand() {
   }
 
   remove() {
-    console.log('sidepabel removed');
-    // this.outputArea.dispose();
-    return super.remove();
-  }
-
-  dispose():void {
-    console.log('SidePanel dispose');
-    this.remove();
+    console.log('SidePanel removed');
+    super.remove();
   }
 
   app: JupyterLab;
-  model: SidePanelModel;
-  pWidget: Panel;
-  outputArea: SimplifiedOutputArea;
 }
 
+
+// We implement our own tab widget since Phoshpor's TabPanel uses an absolute
+// positioning BoxLayout, but we want a more an html/css-based Panel layout.
+
+// export class JupyterPhosphorTabPanelWidget extends TabPanel {
+//   constructor(options: JupyterPhosphorWidget.IOptions & TabPanel.IOptions) {
+//     let view = options.view;
+//     delete options.view;
+//     super(options);
+//     this._view = view;
+//     // We want the view's messages to be the messages the tabContents panel
+//     // gets.
+//     MessageLoop.installMessageHook(this.tabContents, (handler, msg) => {
+//       // There may be times when we want the view's handler to be called
+//       // *after* the message has been processed by the widget, in which
+//       // case we'll need to revisit using a message hook.
+//       this._view.processPhosphorMessage(msg);
+//       return true;
+//     });
+//   }
 //
-// SidePanelOutputArea
+//   /**
+//    * Dispose the widget.
+//    *
+//    * This causes the view to be destroyed as well with 'remove'
+//    */
+//   dispose() {
+//     if (this.isDisposed) {
+//       return;
+//     }
+//     super.dispose();
+//     if (this._view) {
+//       this._view.remove();
+//     }
+//     this._view = null;
+//   }
 //
-class SidePanelOutputArea extends Panel {
-  constructor(options: any) {
-    let view = options.view;
-    delete options.view;
-    super(options);
-    this._view = view;
-  }
-
-  processMessage(msg: Message) {
-    super.processMessage(msg);
-    this._view.processPhosphorMessage(msg);
-  }
-
-  dispose() {
-    if (this.isDisposed) {
-      return;
-    }
-    super.dispose();
-    if (this._view) {
-      this._view.remove();
-    }
-    this._view = null;
-  }
-
-  private _view: DOMWidgetView;
-}
+//   private _view: DOMWidgetView;
+// }

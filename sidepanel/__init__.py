@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 # coding: utf-8
 
+from .sideoutput import SideOutput
 from .sidepanel import SidePanel
 from .sidepanel2 import SidePanel2
 from .sidepanel3 import SidePanel3
-from .sidebox import SideBox
 from ._version import __version__, version_info
 
 
