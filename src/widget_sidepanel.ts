@@ -1,20 +1,19 @@
-import {JupyterLab} from "@jupyterlab/application";
-import {MainAreaWidget} from '@jupyterlab/apputils';
+import { JupyterLab } from "@jupyterlab/application";
+import { MainAreaWidget } from '@jupyterlab/apputils';
 
-import {DOMWidgetView, ViewList, WidgetModel, WrappedError} from '@jupyter-widgets/base';
-import {BoxModel} from '@jupyter-widgets/controls';
-// import {output} from "@jupyter-widgets/jupyterlab-manager";
+import { DOMWidgetView, ViewList, WidgetModel, WrappedError } from '@jupyter-widgets/base';
+import { BoxModel} from '@jupyter-widgets/controls';
 
-import {find} from '@phosphor/algorithm';
-import {UUID} from '@phosphor/coreutils';
-import {Message} from '@phosphor/messaging';
-import {Widget} from '@phosphor/widgets';
+import { find } from '@phosphor/algorithm';
+import { UUID } from '@phosphor/coreutils';
+import { Message, MessageLoop } from '@phosphor/messaging';
+import { Widget } from '@phosphor/widgets';
 
 import * as $ from 'jquery';
 
-import {EXTENSION_SPEC_VERSION} from "./version";
+import { EXTENSION_SPEC_VERSION } from "./version";
 
-import {SidePanel} from './sidepanel';
+import { SidePanel } from './sidepanel';
 import '../css/SidePanel.css';
 
 const MODULE_NAME = 'sidepanel';
@@ -76,11 +75,7 @@ export class SidePanelView extends DOMWidgetView {
     this.listenTo(this.model, 'change:_ctrls', () => this.update_ctrls());
   }
 
-  /**
-   * Called when view is rendered.
-   */
   render() {
-    console.log('new SidePanel');
     super.render();
 
     let panel = this.pWidget;
@@ -97,6 +92,7 @@ export class SidePanelView extends DOMWidgetView {
         let ctrls = this.model.get('_ctrls');
         delete ctrls[child.model_id];
 
+        this.model.sync('patch', this.model, {attrs: {_ctrls: ctrls}});
         this.touch();
       }
     });
@@ -121,7 +117,6 @@ export class SidePanelView extends DOMWidgetView {
   }
 
   updateChildren() {
-    console.log('updateChildren');
     this.updatingChildren = true;
     let children = this.model.get('children');
     this.children_views.update(children);
@@ -129,14 +124,12 @@ export class SidePanelView extends DOMWidgetView {
   }
 
   update_ctrls() {
-    console.log('update ctrls');
+    if (this.updatingChildren) return;
     let items = this.pWidget.itemWidgets;
     let children = this.model.get('children');
     let ctrls = this.model.get('_ctrls');
     for (let i = 0; i < items.length; i++) {
-      let child = children[i];
-      let ctrl = ctrls[child.model_id];
-      console.log('ctrl', i, ctrl);
+      let ctrl = ctrls[children[i].model_id];
       if (ctrl !== void 0) {
         let item = items[i];
         item.widget.title.label = ctrl[0];
@@ -174,6 +167,15 @@ export class SidePanelView extends DOMWidgetView {
   remove() {
     this.children_views = null;
     super.remove();
+  }
+
+  processPhosphorMessage(msg: Message): void {
+    super.processPhosphorMessage(msg);
+    if (msg.type == 'resize') {
+      for (let view of this.pWidget.itemWidgets) {
+        MessageLoop.postMessage(view, Widget.ResizeMessage.UnknownSize);
+      }
+    }
   }
 
   app: JupyterLab;
