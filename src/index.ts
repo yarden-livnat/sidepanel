@@ -2,5 +2,5 @@
 export * from './plugin';
 export * from './version';
 export * from './SideOutput';
-export * from './SidePanel';
+export * from './widget_sidepanel';
 export * from './SidePanel3';

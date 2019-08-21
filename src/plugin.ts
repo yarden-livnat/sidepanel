@@ -1,7 +1,7 @@
 import { JupyterFrontEnd, JupyterFrontEndPlugin } from '@jupyterlab/application';
 import { IJupyterWidgetRegistry } from '@jupyter-widgets/base';
 
-import { SidePanel, SidePanelModel } from './SidePanel';
+import { SidePanelView, SidePanelModel } from './widget_sidepanel';
 import { SideOutput, SideOutputModel } from './SideOutput';
 import { SidePanel3, SidePanelModel3 } from './SidePanel3';
 
@@ -17,7 +17,7 @@ function activate(app: JupyterFrontEnd, registry: IJupyterWidgetRegistry): void 
     }
   };
 
-  let AppSidePanel = class extends SidePanel {
+  let AppSidePanel = class extends SidePanelView {
     constructor(options: any) {
       super({app, ...options});
     }
