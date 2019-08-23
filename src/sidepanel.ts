@@ -2,7 +2,7 @@ import { ArrayExt } from '@phosphor/algorithm';
 
 import { ISignal, Signal } from '@phosphor/signaling';
 
-import { Message, /*MessageLoop*/} from '@phosphor/messaging';
+// import { Message, /*MessageLoop*/} from '@phosphor/messaging';
 import { Panel, PanelLayout, Widget, Title } from '@phosphor/widgets';
 
 
@@ -97,7 +97,7 @@ class PanelItem extends Widget {
 
   set_toolbar() {
     this._title = new Button({cls: 'sp-item-title'});
-    this._title.node.onclick = e => this.toggle();
+    // this._title.node.onclick = e => this.toggle();
     this._header.addWidget(this._title);
 
     let spacer = new Widget();
@@ -123,6 +123,8 @@ class PanelItem extends Widget {
     this._removeButton = new Button({cls: 'sp-item-remove fa fa-close'});
     this._removeButton.node.onclick = e => this.on_remove();
     this._header.addWidget(this._removeButton);
+
+     this._title.node.onclick = e => this._maxButton.toggle();
   }
 
   dispose() {
@@ -184,33 +186,18 @@ class PanelItem extends Widget {
 
   expand(value:boolean) {
     this._expand = value;
-    if (this._expand) {
+    if (this._expand)
       this.addClass(PANEL_ITEM_CLASS_EXPAND);
-      this._expandButton.removeClass('fa-expand');
-      this._expandButton.addClass('fa-compress');
-    }
-    else {
+    else
       this.removeClass(PANEL_ITEM_CLASS_EXPAND);
-      this._expandButton.removeClass('fa-compress');
-      this._expandButton.addClass('fa-expand');
-    }
 
-    // this.processMessage(Widget.ResizeMessage.UnknownSize);
-    // MessageLoop.postMessage(this.widget, Widget.ResizeMessage.UnknownSize);
+     this._expandChanged.emit(void 0);
   }
 
   on_remove() {
     console.log('remove');
     this._removeRequest.emit(void 0);
   }
-
-  processMessage(msg: Message) {
-    console.log('PanelItem processMessage', msg);
-    super.processMessage(msg);
-    // if (msg.type == 'resize' && this.widget)
-    //   this._widget.processMessage(msg);
-  }
-
 
   private _hide() {
     this._collapsed = true;
@@ -237,6 +224,9 @@ class PanelItem extends Widget {
     return this._removeRequest;
   }
 
+  get expandChanged(): ISignal<PanelItem, void> {
+    return this._expandChanged;
+  }
 
   /**
    * Handle the `changed` signal of a title object.
@@ -260,6 +250,7 @@ class PanelItem extends Widget {
   _removeButton: Button;
    private _removeRequest = new Signal<PanelItem, void>(this);
    private _collapseChanged = new Signal<PanelItem, void>(this);
+   private _expandChanged = new Signal<PanelItem, void>(this);
 }
 
 
@@ -311,6 +302,7 @@ class SidePanel extends Panel {
     wrapped.addClass(SIDEPANEL_CHILD_CLASS);
     wrapped.collapseChanged.connect(this._onCollapseChange, this);
     wrapped.removeRequest.connect(this._onRemoveRequest, this);
+    wrapped.expandChanged.connect(this._onExpandChange, this);
     return wrapped;
   }
 
@@ -326,6 +318,10 @@ class SidePanel extends Panel {
   private _onRemoveRequest(sender: PanelItem) {
     this._removeRequest.emit(this.indexOf(sender.widget));
     // this.removeWidget(sender.widget);
+  }
+
+  private _onExpandChange(sender:PanelItem) {
+      super.processMessage(Widget.ResizeMessage.UnknownSize);
   }
 
   private _removeRequest = new Signal<SidePanel, number>(this);
