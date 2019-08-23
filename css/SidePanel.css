@@ -31,6 +31,10 @@
     -moz-osx-font-smoothing: grayscale;
 }
 
+.sp-item-button.disabled {
+    color: lightgray;
+}
+
 .sp-item-button:hover {
     background-color: var(--jp-layout-color2);
 }

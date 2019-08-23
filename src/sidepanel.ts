@@ -30,6 +30,18 @@ class Button extends Widget {
       this.removeClass(c);
     }
   }
+
+  enable() {
+    this._disabled = false;
+    this.removeClass('disabled');
+  }
+
+  disable() {
+    this._disabled = true;
+    this.addClass('disabled');
+  }
+
+  _disabled: boolean = false;
 }
 
 class ToggleButton extends Button {
@@ -57,6 +69,7 @@ class ToggleButton extends Button {
   }
 
   toggle() {
+    if (this._disabled) return;
     if (this.state) this.off();
     else this.on();
     this._clicked.emit(this.state);
@@ -207,6 +220,7 @@ class PanelItem extends Widget {
     this.removeClass(PANEL_ITEM_CLASS_OPEN);
     this.removeClass( PANEL_ITEM_CLASS_EXPAND);
     this._collapseChanged.emit(void 0);
+    this._expandButton.disable();
   }
 
   private _show() {
@@ -218,6 +232,7 @@ class PanelItem extends Widget {
     if (this._expand)
       this.addClass(PANEL_ITEM_CLASS_EXPAND);
     this._collapseChanged.emit(void 0);
+     this._expandButton.enable();
   }
 
   get removeRequest(): ISignal<PanelItem, void> {
@@ -227,6 +242,7 @@ class PanelItem extends Widget {
   get expandChanged(): ISignal<PanelItem, void> {
     return this._expandChanged;
   }
+
 
   /**
    * Handle the `changed` signal of a title object.
@@ -297,6 +313,7 @@ class SidePanel extends Panel {
     }
   }
 
+
   private _wrapWidget(widget: Widget) {
     let wrapped = new PanelItem({ widget });
     wrapped.addClass(SIDEPANEL_CHILD_CLASS);
@@ -307,7 +324,8 @@ class SidePanel extends Panel {
   }
 
   private _onCollapseChange(sender: PanelItem) {
-    console.log('collapse', sender);
+    // super.processMessage(Widget.ResizeMessage.UnknownSize);
+    // console.log('collapse', sender);
     // if (!sender.collapsed) {
     //   this._selection.value = sender;
     // } else if (this._selection.value === sender && sender.collapsed) {
