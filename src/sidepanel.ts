@@ -110,7 +110,6 @@ class PanelItem extends Widget {
 
   set_toolbar() {
     this._title = new Button({cls: 'sp-item-title'});
-    // this._title.node.onclick = e => this.toggle();
     this._header.addWidget(this._title);
 
     let spacer = new Widget();
@@ -232,7 +231,7 @@ class PanelItem extends Widget {
     if (this._expand)
       this.addClass(PANEL_ITEM_CLASS_EXPAND);
     this._collapseChanged.emit(void 0);
-     this._expandButton.enable();
+    this._expandButton.enable();
   }
 
   get removeRequest(): ISignal<PanelItem, void> {
@@ -324,7 +323,7 @@ class SidePanel extends Panel {
   }
 
   private _onCollapseChange(sender: PanelItem) {
-    // super.processMessage(Widget.ResizeMessage.UnknownSize);
+    super.processMessage(Widget.ResizeMessage.UnknownSize);
     // console.log('collapse', sender);
     // if (!sender.collapsed) {
     //   this._selection.value = sender;

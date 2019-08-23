@@ -36,10 +36,10 @@ class SidePanel(SidePanelCore, Box):
         super().__init__( **kwargs)
         self._view_count = 0
 
-    def add(self, widget, header='', show=True, expand=False):
+    def add(self, widget, header='', show=True, expand=True):
         self.insert(len(self.children), widget, header, show, expand)
 
-    def insert(self, index, widget, header='', show=True, expand=False ):
+    def insert(self, index, widget, header='', show=True, expand=True):
         self.children = _insert(self.children, index, widget)
         self._ctrls[widget.model_id] = (header, show, expand)
         self.send_state('_ctrls')
