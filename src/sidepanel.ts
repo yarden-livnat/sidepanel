@@ -91,7 +91,6 @@ class PanelItem extends Widget {
     if (options.widget) {
       this.widget = options.widget;
     }
-    // this.collapsed = false;
     this._show();
   }
 
@@ -109,7 +108,6 @@ class PanelItem extends Widget {
       on: 'fa fa-window-minimize',
       off:'fa fa-window-maximize'
     });
-
     this._maxButton.clicked.connect(this.toggle, this);
     this._header.addWidget(this._maxButton);
 
@@ -162,15 +160,13 @@ class PanelItem extends Widget {
   }
 
   set collapsed(value: boolean) {
-    // TODO: should we have this check here?
     if (value === this._collapsed) {
       return;
     }
-    if (value) {
+    if (value)
       this._hide();
-    } else {
+    else
       this._show();
-    }
   }
 
   toggle() {
@@ -240,7 +236,6 @@ class PanelItem extends Widget {
     this.dispose();
   }
 
-  private _collapseChanged = new Signal<PanelItem, void>(this);
 
   _collapsed: boolean;
   _expand: boolean;
@@ -251,7 +246,9 @@ class PanelItem extends Widget {
   _maxButton: ToggleButton;
   _expandButton: ToggleButton;
   _removeButton: Button;
-  _removeRequest = new Signal<PanelItem, void>(this);
+   private _removeRequest = new Signal<PanelItem, void>(this);
+   private _collapseChanged = new Signal<PanelItem, void>(this);
+
 }
 
 
@@ -320,5 +317,5 @@ class SidePanel extends Panel {
     // this.removeWidget(sender.widget);
   }
 
-  _removeRequest = new Signal<SidePanel, number>(this);
+  private _removeRequest = new Signal<SidePanel, number>(this);
 }
