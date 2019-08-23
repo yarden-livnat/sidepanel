@@ -2,6 +2,7 @@ import { ArrayExt } from '@phosphor/algorithm';
 
 import { ISignal, Signal } from '@phosphor/signaling';
 
+import { Message, /*MessageLoop*/} from '@phosphor/messaging';
 import { Panel, PanelLayout, Widget, Title } from '@phosphor/widgets';
 
 
@@ -197,12 +198,23 @@ class PanelItem extends Widget {
       this._expandButton.removeClass('fa-compress');
       this._expandButton.addClass('fa-expand');
     }
+
+    // this.processMessage(Widget.ResizeMessage.UnknownSize);
+    // MessageLoop.postMessage(this.widget, Widget.ResizeMessage.UnknownSize);
   }
 
   on_remove() {
     console.log('remove');
     this._removeRequest.emit(void 0);
   }
+
+  processMessage(msg: Message) {
+    console.log('PanelItem processMessage', msg);
+    super.processMessage(msg);
+    // if (msg.type == 'resize' && this.widget)
+    //   this._widget.processMessage(msg);
+  }
+
 
   private _hide() {
     this._collapsed = true;
@@ -229,6 +241,7 @@ class PanelItem extends Widget {
     return this._removeRequest;
   }
 
+
   /**
    * Handle the `changed` signal of a title object.
    */
@@ -240,7 +253,7 @@ class PanelItem extends Widget {
     this.dispose();
   }
 
-  private _collapseChanged = new Signal<PanelItem, void>(this);
+
 
   _collapsed: boolean;
   _expand: boolean;
@@ -252,6 +265,8 @@ class PanelItem extends Widget {
   _expandButton: ToggleButton;
   _removeButton: Button;
   _removeRequest = new Signal<PanelItem, void>(this);
+  private _collapseChanged = new Signal<PanelItem, void>(this);
+  // private _expandChanged = new Signal<PanelItem, void>(this);
 }
 
 
