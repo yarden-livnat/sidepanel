@@ -3,7 +3,6 @@ import { IJupyterWidgetRegistry } from '@jupyter-widgets/base';
 
 import { SidePanelView, SidePanelModel } from './widget_sidepanel';
 import { SideOutput, SideOutputModel } from './SideOutput';
-import { SidePanel3, SidePanelModel3 } from './SidePanel3';
 
 import { EXTENSION_SPEC_VERSION } from './version';
 
@@ -23,12 +22,6 @@ function activate(app: JupyterFrontEnd, registry: IJupyterWidgetRegistry): void 
     }
   };
 
-   let AppSidePanel3 = class extends SidePanel3 {
-    constructor(options: any) {
-      super({app, ...options});
-    }
-  };
-
   registry.registerWidget({
     name: EXTENSION_ID,
     version: EXTENSION_SPEC_VERSION,
@@ -37,8 +30,6 @@ function activate(app: JupyterFrontEnd, registry: IJupyterWidgetRegistry): void 
       SideOutput: AppSideOutput,
       SidePanelModel: SidePanelModel,
       SidePanel: AppSidePanel,
-      SidePanelModel3: SidePanelModel3,
-      SidePanel3: AppSidePanel3
     }
   });
 }

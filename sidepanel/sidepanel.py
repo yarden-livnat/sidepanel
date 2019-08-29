@@ -33,7 +33,7 @@ class SidePanel(SidePanelCore, Box):
     _ctrls = Dict().tag(sync=True)
 
     def __init__(self, **kwargs):
-        super().__init__( **kwargs)
+        super().__init__(**kwargs)
         self._view_count = 0
 
     def add(self, widget, header='', show=True, expand=True):
