@@ -1,20 +1,23 @@
-// Copyright (c) Jupyter Development Team.
-// Distributed under the terms of the Modified BSD License.
-
 import { JupyterFrontEnd, JupyterFrontEndPlugin } from '@jupyterlab/application';
 import { IJupyterWidgetRegistry } from '@jupyter-widgets/base';
 
-import { SidePanelModel } from './SidePanelModel';
-import { SidePanel } from './SidePanel';
+import { SidePanelView, SidePanelModel } from './widget_sidepanel';
+import { SideOutput, SideOutputModel } from './SideOutput';
+
 import { EXTENSION_SPEC_VERSION } from './version';
 
 const EXTENSION_ID = 'sidepanel';
 
 
 function activate(app: JupyterFrontEnd, registry: IJupyterWidgetRegistry): void {
-  let AppSidePanel = class extends SidePanel {
+  let AppSideOutput = class extends SideOutput {
     constructor(options: any) {
-      // console.log('activate sidepanel. options=', options);
+      super({app, ...options});
+    }
+  };
+
+  let AppSidePanel = class extends SidePanelView {
+    constructor(options: any) {
       super({app, ...options});
     }
   };
@@ -23,8 +26,10 @@ function activate(app: JupyterFrontEnd, registry: IJupyterWidgetRegistry): void 
     name: EXTENSION_ID,
     version: EXTENSION_SPEC_VERSION,
     exports: {
+      SideOutputModel: SideOutputModel,
+      SideOutput: AppSideOutput,
       SidePanelModel: SidePanelModel,
-      SidePanel: AppSidePanel
+      SidePanel: AppSidePanel,
     }
   });
 }

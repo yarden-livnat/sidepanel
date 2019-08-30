@@ -26,8 +26,8 @@ examples/.ipynb_checkpoints/introduction-checkpoint.ipynb
 sidepanel/__init__.py
 sidepanel/_version.py
 sidepanel/sidepanel.py
-src/SidePanel.prev.ts
-src/SidePanel.ts
+src/SideOutput.prev.ts
+src/SideOutputt.ts
 src/SidePanelModel.ts
 src/index.ts
 src/plugin.ts

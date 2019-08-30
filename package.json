@@ -28,8 +28,7 @@
     "clean": "npm run clean:lib",
     "clean:lib": "rimraf lib",
     "clean:labextension": "rimraf sidepanel/labextension",
-    "watch": "npm-run-all -p watch:*",
-    "watch:lib": "tsc"
+    "watch": "tsc --watch"
   },
   "dependencies": {
     "@jupyter-widgets/base": "^2.0.1",
