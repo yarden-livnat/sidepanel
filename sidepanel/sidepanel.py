@@ -53,33 +53,33 @@ class SidePanel(SidePanelCore, Box):
         del self._ctrls[item.model_id]
         self.send_state('_ctrls')
 
-    def mid(self, item):
+    def _model_id(self, item):
         if not isinstance(item, Widget):
             item = self.children[int(item)]
         return item.model_id
 
     def set_header(self, item, header):
-        model_id = self.mid(item)
+        model_id = self._model_id(item)
         h, s, e = self._ctrls[model_id]
         self._ctrls[model_id] = header, s, e
         self.send_state('_ctrls')
 
     def get_header(self, item):
-        model_id = self.mid(item)
+        model_id = self._model_id(item)
         return self._ctrls[model_id][0]
 
     def expand(self, item, value):
-        model_id = self.mid(item)
+        model_id = self._model_id(item)
         h, s, e = self._ctrls[model_id]
         self._ctrls[model_id] = h, s, value
         self.send_state('_ctrls')
 
     def is_expand(self, item):
-        model_id = self.mid(item)
+        model_id = self._model_id(item)
         return self._ctrls[model_id][2]
 
     def show(self, item, value=True):
-        model_id = self.mid(item)
+        model_id = self._model_id(item)
         h, s, e = self._ctrls[model_id]
         self._ctrls[model_id] = h, value, e
         self.send_state('_ctrls')
@@ -88,5 +88,5 @@ class SidePanel(SidePanelCore, Box):
         self.show(item, False)
 
     def is_shown(self, item):
-        model_id = self.mid(item)
+        model_id = self._model_id(item)
         return self._ctrls[model_id][1]
