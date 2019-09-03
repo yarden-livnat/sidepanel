@@ -32,9 +32,21 @@ class SidePanel(SidePanelCore, Box):
 
     _ctrls = Dict().tag(sync=True)
 
-    def __init__(self, **kwargs):
+    def __init__(self, widgets=None, **kwargs):
         super().__init__(**kwargs)
         self._view_count = 0
+        if widgets is not None:
+            if isinstance(widgets, Widget) or isinstance(widgets, tuple):
+                widgets = [widgets]
+            for w in widgets:
+                if isinstance(w, Widget):
+                    w, args = w, []
+                elif isinstance(w, tuple):
+                    w, *args = w
+                else:
+                    raise ValueError('Each child must be a Widget or a tuple (Widget, *header, *show, *expand) '
+                                     'where the last three are optional')
+                self.add(w, *args)
 
     def add(self, widget, header='', show=True, expand=True):
         self.insert(len(self.children), widget, header, show, expand)
