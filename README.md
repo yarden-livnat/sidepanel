@@ -6,8 +6,8 @@ A widget that provides a fancy vbox in a separate windown in JupyterLab
 
 ```bash
 jupyter labextension install @jupyter-widgets/jupyterlab-manager  # if not installed already
-pip install sidepanel
-jupyter labextension install sidepanel
+pip install @regulus/sidepanel
+jupyter labextension install @regulus/sidepanel
 ```
 
 For development

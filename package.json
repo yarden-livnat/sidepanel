@@ -1,6 +1,6 @@
 {
-  "name": "sidepanel",
-  "version": "0.4.1",
+  "name": "@regulus/sidepanel",
+  "version": "0.4.2",
   "description": "A sidepanel output widget for JupyterLab",
   "keywords": [
     "jupyter",
