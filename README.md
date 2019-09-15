@@ -22,8 +22,8 @@ from sidepanel import SidePanel
 from ipywidgets import IntSlider
 
 panel = SidePanel(title='Sidepanel')
-sl = IntSlider(description='Some slider')
-panel.add(sl)
+sl = IntSlider(description='Value')
+panel.add(sl, header='A slider example')
 ```
 
 
