@@ -31,7 +31,7 @@ fi
 set -e
 echo -n "Installing javascript code"
 npm install
-npm run build:all
+npm run build
 
 echo -n "Installing python code"
 pip install -v -e .

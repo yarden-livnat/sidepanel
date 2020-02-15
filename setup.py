@@ -16,8 +16,8 @@ Sidepanel extension for Jupyter
 """
 
 
-if v[0] < 3 or (v[0] == 3 and v[:2] < (3, 7)):
-    error = "ERROR: %s requires Python version 3.7 or above." % name
+if v[0] < 3 or (v[0] == 3 and v[:2] < (3, 6)):
+    error = "ERROR: %s requires Python version 3.6 or above." % name
     print(error, file=sys.stderr)
     sys.exit(1)
 

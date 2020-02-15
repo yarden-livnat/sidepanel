@@ -24,7 +24,12 @@ from ipywidgets import IntSlider
 panel = SidePanel(title='Sidepanel')
 sl = IntSlider(description='Value')
 panel.add(sl, header='A slider example')
+
+panel1 = SidePanel(side='split-right', ref=panel)
+
 ```
 
+side parameters can be one of 'top', 'right', 'bottom', 'left', 'before', 'after'
 
-<!-- ![sidecar](sidepanel.gif) -->
+
+<!-- ![sidepanel](sidepanel.gif) -->

@@ -20,6 +20,14 @@ def _remove(tuple, index):
     del l[index]
     return l
 
+SIDE_OPTS = dict(
+    left='split-left',
+    right='split-right',
+    top='split-top',
+    bottom='split-bottom',
+    before='tab-before',
+    after='tab-after'
+)
 
 @register
 class SidePanel(SidePanelCore, Box):
@@ -32,7 +40,9 @@ class SidePanel(SidePanelCore, Box):
 
     _ctrls = Dict().tag(sync=True)
 
-    def __init__(self, widgets=None, **kwargs):
+    def __init__(self, widgets=None, side=None, **kwargs):
+        if side is not None and side in SIDE_OPTS:
+            kwargs['side'] = SIDE_OPTS[side]
         super().__init__(**kwargs)
         self._view_count = 0
         if widgets is not None:

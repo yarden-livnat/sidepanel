@@ -1,8 +1,6 @@
 import { ArrayExt } from '@phosphor/algorithm';
 
 import { ISignal, Signal } from '@phosphor/signaling';
-
-// import { Message, /*MessageLoop*/} from '@phosphor/messaging';
 import { Panel, PanelLayout, Widget, Title } from '@phosphor/widgets';
 
 
